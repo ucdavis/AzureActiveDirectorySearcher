@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveDirectoryConfigurationValues.cs" />
+    <Compile Include="ActiveDirectoryDefaults.cs" />
     <Compile Include="AuthenticationHelper.cs" />
     <Compile Include="SearchClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

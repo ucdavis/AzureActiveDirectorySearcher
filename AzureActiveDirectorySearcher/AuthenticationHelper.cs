@@ -5,38 +5,27 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AzureActiveDirectorySearcher
 {
-    public class ActiveDirectoryConfigurationValues
-    {
-        public string AuthString { get; set; }
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
-        public string ResourceUrl { get; set; }
-        public string TenantId { get; set; }
-    }
-
     internal class AuthenticationHelper
     {
-        public static string TokenForUser;
-
         /// <summary>
         /// Async task to acquire token for Application.
         /// </summary>
         /// <returns>Async Token for application.</returns>
         public static async Task<string> AcquireTokenAsyncForApplication(ActiveDirectoryConfigurationValues config)
         {
-            return GetTokenForApplication(config);
+            return await GetTokenForApplication(config);
         }
 
         /// <summary>
         /// Get Token for Application.
         /// </summary>
         /// <returns>Token for application.</returns>
-        public static string GetTokenForApplication(ActiveDirectoryConfigurationValues config)
+        public static async Task<string> GetTokenForApplication(ActiveDirectoryConfigurationValues config)
         {
             AuthenticationContext authenticationContext = new AuthenticationContext(config.AuthString, false);
             // Config for OAuth client credentials 
             ClientCredential clientCred = new ClientCredential(config.ClientId, config.ClientSecret);
-            AuthenticationResult authenticationResult = authenticationContext.AcquireTokenAsync(config.ResourceUrl, clientCred).Result;
+            AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenAsync(config.ResourceUrl, clientCred);
             string token = authenticationResult.AccessToken;
             return token;
         }
