@@ -21,7 +21,7 @@ namespace AzureActiveDirectorySearcher
         {
             return
                 await
-                    ActiveDirectoryClient.Users.Where(x => x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase))
+                    ActiveDirectoryClient.Users.Where(x => x.Surname.StartsWith(last))
                         .ExecuteAsync();
         }
 
@@ -31,8 +31,8 @@ namespace AzureActiveDirectorySearcher
                 await
                     ActiveDirectoryClient.Users.Where(
                         x =>
-                            x.GivenName.Equals(first, StringComparison.OrdinalIgnoreCase) &&
-                            x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase))
+                            x.GivenName.StartsWith(first) &&
+                            x.Surname.StartsWith(last))
                         .ExecuteAsync();
         }
 
@@ -40,7 +40,7 @@ namespace AzureActiveDirectorySearcher
         {
             return
                 await
-                    ActiveDirectoryClient.Users.Where(x => x.Mail.Equals(email, StringComparison.OrdinalIgnoreCase))
+                    ActiveDirectoryClient.Users.Where(x => x.Mail.StartsWith(email))
                         .ExecuteAsync();
         }
 
@@ -49,7 +49,7 @@ namespace AzureActiveDirectorySearcher
             return
                 await
                     ActiveDirectoryClient.Users.Where(
-                        x => x.ProxyAddresses.Any(a => a.Equals(GetKerberosStringForActiveDirectory(kerb))))
+                        x => x.ProxyAddresses.Any(a => a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
         
@@ -58,11 +58,10 @@ namespace AzureActiveDirectorySearcher
             return
                 await
                     ActiveDirectoryClient.Users.Where(
-                        x => x.Mail.Equals(email, StringComparison.OrdinalIgnoreCase) ||
+                        x => x.Mail.StartsWith(email) ||
                              x.ProxyAddresses.Any(
                                  a =>
-                                     a.Equals(GetKerberosStringForActiveDirectory(kerb),
-                                         StringComparison.OrdinalIgnoreCase)))
+                                     a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
 
@@ -71,13 +70,12 @@ namespace AzureActiveDirectorySearcher
             return
                 await
                     ActiveDirectoryClient.Users.Where(
-                        x => x.Mail.Equals(email, StringComparison.OrdinalIgnoreCase) ||
-                             x.GivenName.Equals(first, StringComparison.OrdinalIgnoreCase) ||
-                             x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase) ||
+                        x => x.Mail.StartsWith(email) ||
+                             x.GivenName.StartsWith(first) ||
+                             x.Surname.StartsWith(last) ||
                              x.ProxyAddresses.Any(
                                  a =>
-                                     a.Equals(GetKerberosStringForActiveDirectory(kerb),
-                                         StringComparison.OrdinalIgnoreCase)))
+                                     a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
 
