@@ -1,5 +1,6 @@
 ﻿using System;
 using AzureActiveDirectorySearcher;
+using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AzureActiveDirectorySearcherTests
@@ -67,6 +68,33 @@ namespace AzureActiveDirectorySearcherTests
         {
             var result = Searcher.FindByUserInfo("jpkno", "jpknoll", "john", "knoll").Result;
             Assert.IsNotNull(result.CurrentPage.Count > 0);
+        }
+
+        [TestMethod]
+        public void TestKerberosHelper()
+        {
+            var user = new User {ProxyAddresses = new[] {"smtp:jpknoll@ad3.ucdavis.edu"}};
+            var kerb = user.GetKerberos();
+            
+            Assert.IsNotNull(kerb);
+        }
+
+        [TestMethod]
+        public void TestKerberosHelperNoMatch()
+        {
+            var user = new User { ProxyAddresses = new[] { "smtp:jpknoll@fakedomain.com" } };
+            var kerb = user.GetKerberos();
+
+            Assert.IsNull(kerb);
+        }
+
+        [TestMethod]
+        public void TestKerberosHelperEmptyProxyAddresses()
+        {
+            var user = new User { ProxyAddresses = new string[0] };
+            var kerb = user.GetKerberos();
+
+            Assert.IsNull(kerb);
         }
     }
 }

@@ -8,7 +8,7 @@
     <owners>Scott Kirkland</owners>
     <projectUrl>https://github.com/ucdavis/AzureActiveDirectorySearcher</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Simple helpful library for finding users in AzureAD (including application authentication)</description>
     <releaseNotes>Initial release of the package.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Azure ActiveDirectory AzureAD GraphAPI</tags>

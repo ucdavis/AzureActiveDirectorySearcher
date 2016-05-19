@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
@@ -49,7 +50,7 @@ namespace AzureActiveDirectorySearcher
             return
                 await
                     ActiveDirectoryClient.Users.Where(
-                        x => x.ProxyAddresses.Any(a => a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
+                        x => x.ProxyAddresses.Any(a => a.StartsWith(KerberosHelpers.GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
         
@@ -61,7 +62,7 @@ namespace AzureActiveDirectorySearcher
                         x => x.Mail.StartsWith(email) ||
                              x.ProxyAddresses.Any(
                                  a =>
-                                     a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
+                                     a.StartsWith(KerberosHelpers.GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
 
@@ -75,7 +76,7 @@ namespace AzureActiveDirectorySearcher
                              x.Surname.StartsWith(last) ||
                              x.ProxyAddresses.Any(
                                  a =>
-                                     a.StartsWith(GetKerberosStringForActiveDirectory(kerb))))
+                                     a.StartsWith(KerberosHelpers.GetKerberosStringForActiveDirectory(kerb))))
                         .ExecuteAsync();
         }
 
@@ -86,7 +87,7 @@ namespace AzureActiveDirectorySearcher
                     ActiveDirectoryClient.Users.Where(
                         x => x.ProxyAddresses.Any(
                                  a =>
-                                     a.Equals(GetKerberosStringForActiveDirectory(kerb),
+                                     a.Equals(KerberosHelpers.GetKerberosStringForActiveDirectory(kerb),
                                          StringComparison.OrdinalIgnoreCase)))
                         .ExecuteAsync();
 
@@ -103,13 +104,29 @@ namespace AzureActiveDirectorySearcher
 
             return result.CurrentPage.SingleOrDefault();
         }
+    }
+
+    public static class KerberosHelpers
+    {
+        public static string GetKerberos(this IUser user, string proxyBase = "@ad3.ucdavis.edu")
+        {
+            if (user == null || user.ProxyAddresses == null) return null;
+
+            var kerberosProxy = user.ProxyAddresses.FirstOrDefault(x => x.EndsWith(proxyBase));
+
+            if (string.IsNullOrWhiteSpace(kerberosProxy)) return null;
+
+            var matches = Regex.Match(kerberosProxy, string.Format(@"smtp:(\w+){0}", proxyBase), RegexOptions.IgnoreCase);
+
+            return matches.Success ? matches.Groups[1].Value : null;
+        }
 
         /// <summary>
         /// Active directory doesn't have the kerb directly but we can turn it into a proxy address and search there
         /// </summary>
         /// <param name="kerb">kerberos ID</param>
         /// <returns></returns>
-        private string GetKerberosStringForActiveDirectory(string kerb)
+        public static string GetKerberosStringForActiveDirectory(string kerb)
         {
             return string.Format("smtp:{0}@ad3.ucdavis.edu", kerb);
         }
