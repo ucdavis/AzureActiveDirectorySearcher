@@ -10,9 +10,9 @@ namespace AzureActiveDirectorySearcherTests
         [TestMethod]
         public void TestMethod1()
         {
-            var searcher = new SearchClient(new ActiveDirectoryConfigurationValues(TestValues.TenantName, TestValues.TenantId, TestValues.ClientId, TestValues.ClientSecret));
+            var searcher = new ActiveDirectorySearchClient(new ActiveDirectoryConfigurationValues(TestValues.TenantName, TestValues.TenantId, TestValues.ClientId, TestValues.ClientSecret));
             
-            Assert.IsNotNull(searcher.GetSingleByKerberosOrEmail("postit", "jpknoll@ucdavis.edu").Result);
+            Assert.IsNotNull(searcher.GetSingleByEmail("jpknoll@ucdavis.edu").Result);
         }
     }
 }

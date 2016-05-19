@@ -8,20 +8,31 @@ using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
 
 namespace AzureActiveDirectorySearcher
 {
-    public class SearchClient
+    public class ActiveDirectorySearchClient : ISearchClient
     {
         public ActiveDirectoryClient ActiveDirectoryClient { get; set; }
 
-        public SearchClient(ActiveDirectoryConfigurationValues config)
+        public ActiveDirectorySearchClient(ActiveDirectoryConfigurationValues config)
         {
             ActiveDirectoryClient = AuthenticationHelper.GetActiveDirectoryClientAsApplication(config);
         }
 
-        public async Task<IPagedCollection<IUser>> FindBySurname(string surname)
+        public async Task<IPagedCollection<IUser>> FindByLastName(string last)
         {
             return
                 await
-                    ActiveDirectoryClient.Users.Where(x => x.Surname.Equals(surname, StringComparison.OrdinalIgnoreCase))
+                    ActiveDirectoryClient.Users.Where(x => x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase))
+                        .ExecuteAsync();
+        }
+
+        public async Task<IPagedCollection<IUser>> FindByFirstAndLastName(string first, string last)
+        {
+            return
+                await
+                    ActiveDirectoryClient.Users.Where(
+                        x =>
+                            x.GivenName.Equals(first, StringComparison.OrdinalIgnoreCase) &&
+                            x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase))
                         .ExecuteAsync();
         }
 
@@ -54,17 +65,42 @@ namespace AzureActiveDirectorySearcher
                                          StringComparison.OrdinalIgnoreCase)))
                         .ExecuteAsync();
         }
-        
-        public async Task<IUser> GetSingleByKerberosOrEmail(string kerb, string email = "")
+
+        public async Task<IPagedCollection<IUser>> FindByUserInfo(string kerb, string email, string first, string last)
         {
-            var result =
+            return
                 await
                     ActiveDirectoryClient.Users.Where(
                         x => x.Mail.Equals(email, StringComparison.OrdinalIgnoreCase) ||
+                             x.GivenName.Equals(first, StringComparison.OrdinalIgnoreCase) ||
+                             x.Surname.Equals(last, StringComparison.OrdinalIgnoreCase) ||
                              x.ProxyAddresses.Any(
                                  a =>
                                      a.Equals(GetKerberosStringForActiveDirectory(kerb),
                                          StringComparison.OrdinalIgnoreCase)))
+                        .ExecuteAsync();
+        }
+
+        public async Task<IUser> GetSingleByKerberos(string kerb)
+        {
+            var result =
+                await
+                    ActiveDirectoryClient.Users.Where(
+                        x => x.ProxyAddresses.Any(
+                                 a =>
+                                     a.Equals(GetKerberosStringForActiveDirectory(kerb),
+                                         StringComparison.OrdinalIgnoreCase)))
+                        .ExecuteAsync();
+
+            return result.CurrentPage.SingleOrDefault();
+        }
+
+        public async Task<IUser> GetSingleByEmail(string email)
+        {
+            var result =
+                await
+                    ActiveDirectoryClient.Users.Where(
+                        x => x.Mail.Equals(email, StringComparison.OrdinalIgnoreCase))
                         .ExecuteAsync();
 
             return result.CurrentPage.SingleOrDefault();
