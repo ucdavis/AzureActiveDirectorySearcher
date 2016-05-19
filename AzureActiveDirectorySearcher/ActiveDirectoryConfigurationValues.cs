@@ -33,7 +33,11 @@
 
         public string AzureLoginUrl { get; set; }
         public string ResourceUrl { get; set; }
-        public string AuthString => "https://login.microsoftonline.com/" + TenantName;
+
+        public string AuthString
+        {
+            get { return "https://login.microsoftonline.com/" + TenantName; }
+        }
 
         public string TenantName { get; set; }
         public string TenantId { get; set; }
