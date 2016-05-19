@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>AzureActiveDirectorySearcher</id>
+    <version>$version$</version>
+    <title>AzureActiveDirectorySearcher</title>
+    <authors>Scott Kirkland</authors>
+    <owners>Scott Kirkland</owners>
+    <projectUrl>https://github.com/ucdavis/AzureActiveDirectorySearcher</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Azure ActiveDirectory AzureAD GraphAPI</tags>
+  </metadata>
+</package>
