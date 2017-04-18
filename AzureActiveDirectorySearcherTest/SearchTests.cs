@@ -1,13 +1,11 @@
 ﻿using AzureActiveDirectorySearcher;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace AzureActiveDirectorySearcherTests
 {
-    [TestClass]
     public class SearchTests
     {
-        [TestInitialize]
-        public void SetupSearcher()
+        public SearchTests()
         {
             if (Searcher == null)
             {
@@ -19,24 +17,24 @@ namespace AzureActiveDirectorySearcherTests
 
         public IGraphSearchClient Searcher { get; set; }
 
-        [TestMethod]
+        [Fact]
         public void TestGetSingleByEmail()
         {
-            Assert.IsNotNull(Searcher.GetUserByEmail("jpknoll@ucdavis.edu").Result);
+            Assert.NotNull(Searcher.GetUserByEmail("jpknoll@ucdavis.edu").Result);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetSingleByKerb()
         {
-            Assert.IsNotNull(Searcher.GetUserByKerberos("jpknoll").Result);
+            Assert.NotNull(Searcher.GetUserByKerberos("jpknoll").Result);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestFindByKerberosOrEmail()
         {
             var result = Searcher.FindByEmailOrKerberos("jpknoll", "jsylvestre@ucdavis.edu").Result;
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Length);
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Length);
         }
     }
 }
