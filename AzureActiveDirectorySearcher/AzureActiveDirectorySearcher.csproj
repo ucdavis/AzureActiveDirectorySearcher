@@ -5,6 +5,8 @@
     <PackageId>AzureActiveDirectorySearcher</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>Scott Kirkland</Authors>
+    <Owners>Scott Kirkland</Owners>
+    <ProjectUrl>https://github.com/ucdavis/AzureActiveDirectorySearcher</ProjectUrl>
     <Description>AzureActiveDirectorySearcher</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Azure ActiveDirectory AzureAD GraphAPI</PackageTags>
