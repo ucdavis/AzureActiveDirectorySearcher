@@ -1,10 +1,11 @@
 ﻿using AzureActiveDirectorySearcher;
+using Xunit;
 
 namespace AzureActiveDirectorySearcherTests
 {
     public class SearchTests
     {
-        public void SetupSearcher()
+        public SearchTests()
         {
             if (Searcher == null)
             {
@@ -19,21 +20,21 @@ namespace AzureActiveDirectorySearcherTests
         [Fact]
         public void TestGetSingleByEmail()
         {
-            Assert.IsNotNull(Searcher.GetUserByEmail("jpknoll@ucdavis.edu").Result);
+            Assert.NotNull(Searcher.GetUserByEmail("jpknoll@ucdavis.edu").Result);
         }
 
         [Fact]
         public void TestGetSingleByKerb()
         {
-            Assert.IsNotNull(Searcher.GetUserByKerberos("jpknoll").Result);
+            Assert.NotNull(Searcher.GetUserByKerberos("jpknoll").Result);
         }
 
         [Fact]
         public void TestFindByKerberosOrEmail()
         {
             var result = Searcher.FindByEmailOrKerberos("jpknoll", "jsylvestre@ucdavis.edu").Result;
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Length);
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Length);
         }
     }
 }
