@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>AzureActiveDirectorySearcher</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Scott Kirkland</Authors>
+    <Description>AzureActiveDirectorySearcher</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Azure ActiveDirectory AzureAD GraphAPI</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
