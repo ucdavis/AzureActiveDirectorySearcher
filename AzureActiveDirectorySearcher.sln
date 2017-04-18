@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureActiveDirectorySearcher", "AzureActiveDirectorySearcher\AzureActiveDirectorySearcher.csproj", "{D954A1E6-7526-4901-8A0E-A77B96A8BF97}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureActiveDirectorySearcherTests", "AzureActiveDirectorySearcherTests\AzureActiveDirectorySearcherTests.csproj", "{268D5645-E586-4B18-9B4E-A79602FAE2A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureActiveDirectorySearch", "AzureActiveDirectorySearch\AzureActiveDirectorySearch.csproj", "{92E5DC3A-CD27-4BD0-9078-B93EF43FB065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureActiveDirectorySearcher", "AzureActiveDirectorySearcher\AzureActiveDirectorySearcher.csproj", "{0B98F633-2D13-4770-8C37-FA7FD41D7E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D954A1E6-7526-4901-8A0E-A77B96A8BF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D954A1E6-7526-4901-8A0E-A77B96A8BF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D954A1E6-7526-4901-8A0E-A77B96A8BF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D954A1E6-7526-4901-8A0E-A77B96A8BF97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{268D5645-E586-4B18-9B4E-A79602FAE2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{268D5645-E586-4B18-9B4E-A79602FAE2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268D5645-E586-4B18-9B4E-A79602FAE2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268D5645-E586-4B18-9B4E-A79602FAE2A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92E5DC3A-CD27-4BD0-9078-B93EF43FB065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92E5DC3A-CD27-4BD0-9078-B93EF43FB065}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92E5DC3A-CD27-4BD0-9078-B93EF43FB065}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92E5DC3A-CD27-4BD0-9078-B93EF43FB065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B98F633-2D13-4770-8C37-FA7FD41D7E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B98F633-2D13-4770-8C37-FA7FD41D7E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B98F633-2D13-4770-8C37-FA7FD41D7E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B98F633-2D13-4770-8C37-FA7FD41D7E87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

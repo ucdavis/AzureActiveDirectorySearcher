@@ -83,14 +83,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureActiveDirectorySearcher\AzureActiveDirectorySearcher.csproj">
-      <Project>{D954A1E6-7526-4901-8A0E-A77B96A8BF97}</Project>
-      <Name>AzureActiveDirectorySearcher</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AzureActiveDirectorySearcher\AzureActiveDirectorySearcher.csproj">
+      <Project>{0b98f633-2d13-4770-8c37-fa7fd41d7e87}</Project>
+      <Name>AzureActiveDirectorySearcher</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
