@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Azure.ActiveDirectory.GraphClient;
+﻿using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AzureActiveDirectorySearcher
@@ -28,19 +26,6 @@ namespace AzureActiveDirectorySearcher
             AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenAsync(config.ResourceUrl, clientCred);
             string token = authenticationResult.AccessToken;
             return token;
-        }
-
-        /// <summary>
-        /// Get Active Directory Client for Application.
-        /// </summary>
-        /// <returns>ActiveDirectoryClient for Application.</returns>
-        public static ActiveDirectoryClient GetActiveDirectoryClientAsApplication(ActiveDirectoryConfigurationValues config)
-        {
-            Uri servicePointUri = new Uri(config.ResourceUrl);
-            Uri serviceRoot = new Uri(servicePointUri, config.TenantId);
-            ActiveDirectoryClient activeDirectoryClient = new ActiveDirectoryClient(serviceRoot,
-                async () => await AcquireTokenAsyncForApplication(config));
-            return activeDirectoryClient;
         }
     }
 }
